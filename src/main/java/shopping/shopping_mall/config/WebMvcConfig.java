@@ -1,4 +1,4 @@
-package config;
+package shopping.shopping_mall.config;
 
 import org.springframework.boot.web.servlet.view.MustacheViewResolver;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
