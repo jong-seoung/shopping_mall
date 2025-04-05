@@ -29,7 +29,11 @@ public class SecurityConfig {
                 );
 
         http.formLogin(form -> form
-                .loginPage("/loginForm"));
+                .loginPage("/loginForm")
+                .usernameParameter("username")
+                .loginProcessingUrl("/login") // login 주소가 호출 되면 시큐리티가 낚아채서 대신 로그인을 진행해줌
+                .defaultSuccessUrl("/") // 로그인 성공시 이동 url
+        );
         return http.build();
     }
 }
