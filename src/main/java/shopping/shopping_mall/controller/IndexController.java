@@ -4,13 +4,18 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import shopping.shopping_mall.config.auth.PrincipalDetails;
 import shopping.shopping_mall.model.User;
 import shopping.shopping_mall.repository.UserRepositroy;
+
+import java.util.Iterator;
 
 @Data
 @Controller //View를 리턴하겠다.
@@ -28,8 +33,17 @@ public class IndexController {
     }
 
     @GetMapping("/user")
-    public @ResponseBody String user(){
-        return "user";
+    public @ResponseBody String user(@AuthenticationPrincipal PrincipalDetails principal){
+        System.out.println("Principal : " + principal);
+        System.out.println("OAuth2 : "+principal.getUser().getProvider());
+        // iterator 순차 출력 해보기
+        Iterator<? extends GrantedAuthority> iter = principal.getAuthorities().iterator();
+        while (iter.hasNext()) {
+            GrantedAuthority auth = iter.next();
+            System.out.println(auth.getAuthority());
+        }
+
+        return "유저 페이지입니다.";
     }
 
     @GetMapping("/admin")
