@@ -8,10 +8,12 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import shopping.shopping_mall.config.auth.PrincipalDetails;
 import shopping.shopping_mall.config.oauth.provider.GoogleUserInfo;
+import shopping.shopping_mall.config.oauth.provider.NaverUserInfo;
 import shopping.shopping_mall.config.oauth.provider.OAuth2UserInfo;
 import shopping.shopping_mall.model.User;
 import shopping.shopping_mall.repository.UserRepositroy;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -40,16 +42,16 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         // Attribute를 파싱해서 공통 객체로 묶는다. 관리가 편함.
         OAuth2UserInfo oAuth2UserInfo = null;
         if (userRequest.getClientRegistration().getRegistrationId().equals("google")) {
-            System.out.println("구글 로그인 요청~~");
+            System.out.println("구글 로그인 요청");
             oAuth2UserInfo = new GoogleUserInfo(oAuth2User.getAttributes());
 //        } else if (userRequest.getClientRegistration().getRegistrationId().equals("facebook")) {
-//            System.out.println("페이스북 로그인 요청~~");
+//            System.out.println("페이스북 로그인 요청");
 //            oAuth2UserInfo = new FaceBookUserInfo(oAuth2User.getAttributes());
-//        } else if (userRequest.getClientRegistration().getRegistrationId().equals("naver")){
-//            System.out.println("네이버 로그인 요청~~");
-//            oAuth2UserInfo = new NaverUserInfo((Map)oAuth2User.getAttributes().get("response"));
+        } else if (userRequest.getClientRegistration().getRegistrationId().equals("naver")){
+            System.out.println("네이버 로그인 요청");
+            oAuth2UserInfo = new NaverUserInfo((Map)oAuth2User.getAttributes().get("response"));
         } else {
-            System.out.println("우리는 구글만 지원해요");
+            System.out.println("우리는 구글, 네이버만 지원해요");
         }
 
         //System.out.println("oAuth2UserInfo.getProvider() : " + oAuth2UserInfo.getProvider());
