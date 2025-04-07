@@ -26,7 +26,7 @@ public class ItemFormDto {
     @NotNull(message = "재고는 필수 입력 값입니다.")
     private Integer stock;
 
-    private ItemSellStatus itemSellStauts;
+    private ItemSellStatus itemSellStatus;
 
     // 상품 수정 시 사용되는 멤버 변수들
 
