@@ -4,8 +4,78 @@
       layout:decorate="~{layouts/mainLayout}">
 <head>
     <title>Shopping Mall</title>
+    <style>
+        .item-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 한 줄에 4개 */
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .item-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .item-card:hover {
+            transform: scale(1.03);
+        }
+
+        .item-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: #f0f0f0;
+            margin-bottom: 10px;
+        }
+
+        .item-info {
+            text-align: center;
+        }
+
+        .item-info h2 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .item-info p {
+            margin: 2px 0;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 1024px) {
+            .item-grid {
+                grid-template-columns: repeat(2, 1fr); /* 태블릿에서는 2개 */
+            }
+        }
+
+        @media (max-width: 600px) {
+            .item-grid {
+                grid-template-columns: 1fr; /* 모바일에서는 1개 */
+            }
+        }
+    </style>
 </head>
 <body>
-<div layout:fragment="content">본문</div>
+<div layout:fragment="content">
+    <h1 style="text-align: center;">상품 목록</h1>
+    <div class="item-grid">
+        <a class="item-card" th:each="item : ${items}" th:href="@{/items/{id}(id=${item.id})}" style="text-decoration: none; color: inherit;">
+            <img class="item-img" th:src="@{/images/default.jpg}" alt="상품 이미지">
+            <!-- 나중에 th:src="${item.imgUrl}" 로 바꾸면 됨 -->
+
+            <div class="item-info">
+                <h2 th:text="${item.itemName}">상품명</h2>
+                <p th:text="${item.itemDetail}">상품 설명</p>
+                <p><strong th:text="${item.price}">10000</strong>원</p>
+                <p>재고: <span th:text="${item.stock}">10</span></p>
+                <p th:text="${item.itemSellStatus}">SELL</p>
+            </div>
+        </a>
+    </div>
+</div>
 </body>
 </html>

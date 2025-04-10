@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/mainLayout}">
+<head>
+    <title>상품 상세</title>
+</head>
+<body>
+<div class="item-card" th:each="item : ${item}">
+<div layout:fragment="content">
+    <h1 th:text="${item.itemName}">상품명</h1>
+    <img th:src="@{/images/default.jpg}" alt="상품 이미지" style="width:300px; height:auto;">
+    <!-- 나중에 th:src="${item.imgUrl}" 로 바꾸면 됨 -->
+    <p><strong>설명:</strong> <span th:text="${item.itemDetail}">설명</span></p>
+    <p><strong>가격:</strong> <span th:text="${item.price}">10000</span>원</p>
+    <p><strong>재고:</strong> <span th:text="${item.stock}">10</span></p>
+    <p><strong>판매 상태:</strong> <span th:text="${item.itemSellStatus}">SELL</span></p>
+    <pre th:text="${#strings.toString(item)}">객체 출력</pre>
+</div>
+</div>
+</body>
+</html>

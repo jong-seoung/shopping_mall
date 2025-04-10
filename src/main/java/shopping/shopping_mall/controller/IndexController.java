@@ -27,11 +27,6 @@ public class IndexController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @GetMapping({"","/"})
-    public String index(){
-        return "index";
-    }
-
     @GetMapping("/user")
     public @ResponseBody String user(@AuthenticationPrincipal PrincipalDetails principal){
         System.out.println("Principal : " + principal);

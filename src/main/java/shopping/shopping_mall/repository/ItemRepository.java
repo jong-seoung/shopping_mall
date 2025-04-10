@@ -1,4 +1,7 @@
 package shopping.shopping_mall.repository;
 
-public interface ItemRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import shopping.shopping_mall.model.Item;
+
+public interface ItemRepository extends JpaRepository<Item, Long> {
 }

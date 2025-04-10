@@ -4,12 +4,14 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.modelmapper.ModelMapper;
 import shopping.shopping_mall.constant.ItemSellStatus;
 import shopping.shopping_mall.model.Item;
 
 
 @Getter @Setter
+@ToString
 public class ItemFormDto {
 
     private Long id;
