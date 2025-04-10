@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/mainLayout}">
+<head>
+    <title>상품 관리</title>
+    <style>
+        table {
+            width: 90%;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f8f8f8;
+        }
+
+        a.button {
+            padding: 6px 12px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        a.button:hover {
+            background-color: #0056b3;
+        }
+
+        form {
+            display: inline;
+        }
+
+        button.delete {
+            padding: 6px 12px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button.delete:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1 style="text-align: center;">어드민 상품 관리</h1>
+    <div style="text-align: center; margin-bottom: 20px;">
+        <a href="/admin/item/new" class="button">상품 등록</a>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>상품명</th>
+            <th>설명</th>
+            <th>가격</th>
+            <th>재고</th>
+            <th>판매 상태</th>
+            <th>관리</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
+            <td th:text="${item.id}">1</td>
+            <td>
+                <a th:href="@{/items/{id}(id=${item.id})}" th:text="${item.itemName}">상품명</a>
+            </td>
+            <td th:text="${item.itemDetail}">설명</td>
+            <td th:text="${item.price}">10000</td>
+            <td th:text="${item.stock}">50</td>
+            <td th:text="${item.itemSellStatus}">SELL</td>
+            <td>
+                <a th:href="@{/admin/item/edit/{id}(id=${item.id})}" class="button">수정</a>
+                <form th:action="@{/admin/item/delete/{id}(id=${item.id})}" method="post">
+                    <button type="submit" class="delete">삭제</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

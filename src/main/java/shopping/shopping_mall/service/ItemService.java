@@ -31,6 +31,26 @@ public class ItemService{
         return dto;
     }
 
+    public void save(Item item){
+        itemRepository.save(item);
+    }
+
+    @Transactional
+    public void updateItem(Long id, ItemFormDto itemFormDto) {
+        Item item = itemRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("아이템 없음"));
+
+        item.setItemName(itemFormDto.getItemName());
+        item.setItemDetail(itemFormDto.getItemDetail());
+        item.setPrice(itemFormDto.getPrice());
+        item.setStock(itemFormDto.getStock());
+        item.setItemSellStatus(itemFormDto.getItemSellStatus());
+    }
+
+    public void delete(Long id){
+        itemRepository.deleteById(id);
+    }
+
     public List<Item> getItemList() {
         return itemRepository.findAll();
     }
