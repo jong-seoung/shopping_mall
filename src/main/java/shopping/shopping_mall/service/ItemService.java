@@ -7,12 +7,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import shopping.shopping_mall.dto.ItemFormDto;
+import shopping.shopping_mall.dto.ItemListDto;
 import shopping.shopping_mall.model.Item;
 import shopping.shopping_mall.model.ItemImg;
 import shopping.shopping_mall.repository.ItemImageRepository;
 import shopping.shopping_mall.repository.ItemRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -53,6 +55,7 @@ public class ItemService{
 
             ItemImg img = new ItemImg();
             img.setImgName(fileName);
+            img.setImgUrl("/images/"+fileName);
             img.setRepimgYn(i == 0 ? "Y" : "N");
             img.setItem(item);
 
@@ -76,7 +79,10 @@ public class ItemService{
         itemRepository.deleteById(id);
     }
 
-    public List<Item> getItemList() {
-        return itemRepository.findAll();
+    public List<ItemListDto> getItemList() {
+        List<Item> items = itemRepository.findAll();
+        return items.stream()
+                .map(ItemListDto::new)
+                .collect(Collectors.toList());
     }
 }

@@ -1,5 +1,7 @@
 package shopping.shopping_mall.model;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,6 +37,9 @@ public class Item extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private ItemSellStatus itemSellStatus;
 
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ItemImg> itemImgList;
+    
     public void updateItem(ItemFormDto itemFormDto){
         this.itemName = itemFormDto.getItemName();
         this.itemDetail = itemFormDto.getItemDetail();
