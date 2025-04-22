@@ -62,4 +62,4 @@ server:
       enabled: true
       force: true
 
-uploadPath: file:///C:/shop/item/
+uploadPath: C:/Users/JongSeoung/workspace/shopping_mall/images/

@@ -9,7 +9,7 @@
 <div layout:fragment="content">
     <h1>상품 등록 페이지</h1>
     <hr/>
-    <form action="/admin/item/new" method="POST">
+    <form action="/admin/item/new" method="POST" enctype="multipart/form-data">
         <input type="text" name="itemName" placeholder="상품명" required /><br><br>
 
         <textarea name="itemDetail" placeholder="상품 설명" rows="4" cols="30" required></textarea><br><br>
@@ -23,6 +23,8 @@
             <option value="SOLD_OUT">품절</option>
         </select><br><br>
 
+        <input type="file" name="itemImgFileList" multiple required /><br><br>
+        
         <button type="submit">상품 등록</button>
     </form>
 </div>

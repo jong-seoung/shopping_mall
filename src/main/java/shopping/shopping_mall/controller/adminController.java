@@ -1,11 +1,15 @@
 package shopping.shopping_mall.controller;
 
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import shopping.shopping_mall.dto.ItemFormDto;
-import shopping.shopping_mall.model.Item;
 import shopping.shopping_mall.service.ItemService;
 
 @Controller
@@ -29,9 +33,9 @@ public class adminController {
     }
 
     @PostMapping("/item/new")
-    public String save(@ModelAttribute Item item){
-        itemService.save(item);
-        System.out.println("item:"+ item);
+    public String save(@ModelAttribute ItemFormDto itemFormDto, @RequestParam("itemImgFileList") List<MultipartFile> images) throws Exception{
+        itemService.saveItem(itemFormDto, images);
+        System.out.println("item:"+ itemFormDto);
         return "redirect:/admin/item/list";
     }
 
