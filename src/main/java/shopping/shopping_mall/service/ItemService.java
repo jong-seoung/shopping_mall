@@ -14,6 +14,7 @@ import shopping.shopping_mall.model.ItemImg;
 import shopping.shopping_mall.repository.ItemImageRepository;
 import shopping.shopping_mall.repository.ItemRepository;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -93,7 +94,12 @@ public class ItemService{
         }
     }
 
-    public void delete(Long id){
+    public void delete(Long id) throws IOException{
+        List<ItemImg> itemImgs = itemImageRepository.findByItem_Id(id);
+        for (ItemImg img : itemImgs){
+            fileService.deleteFile(img.getImgName());
+        }
+        itemImageRepository.deleteByItem_Id(id);
         itemRepository.deleteById(id);
     }
 

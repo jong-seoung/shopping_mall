@@ -8,4 +8,7 @@ import shopping.shopping_mall.model.ItemImg;
 
 public interface ItemImageRepository extends JpaRepository<ItemImg, Long> {
     List<ItemImg> findByItemIdOrderByIdAsc(Long itemId);
+
+    void deleteByItem_Id(Long itemId);
+    List<ItemImg> findByItem_Id(Long itemId);
 }

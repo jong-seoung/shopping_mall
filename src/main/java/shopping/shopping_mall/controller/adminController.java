@@ -2,6 +2,7 @@ package shopping.shopping_mall.controller;
 
 import lombok.RequiredArgsConstructor;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -39,9 +40,10 @@ public class adminController {
         return "redirect:/admin/item/list";
     }
 
-    /** 어드민 상품 제거 **/
+    /** 어드민 상품 제거 
+     * @throws IOException **/
     @PostMapping("/item/delete/{id}")
-    public String delete(@PathVariable Long id) {
+    public String delete(@PathVariable Long id) throws IOException {
         itemService.delete(id);
         return "redirect:/admin/item/list";
     }
