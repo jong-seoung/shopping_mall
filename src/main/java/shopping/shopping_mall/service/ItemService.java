@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import shopping.shopping_mall.dto.ItemDetailDto;
 import shopping.shopping_mall.dto.ItemFormDto;
 import shopping.shopping_mall.dto.ItemListDto;
 import shopping.shopping_mall.model.Item;
@@ -25,18 +26,12 @@ public class ItemService{
     private final ItemImageRepository itemImageRepository;
     private final FileService fileService;
 
-    public ItemFormDto getItem(Long id) {
+    public ItemDetailDto getItem(Long id) {
         Item item = itemRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("아이템 없음"));
 
-        ItemFormDto dto = new ItemFormDto();
-        dto.setId(item.getId());
-        dto.setItemName(item.getItemName());
-        dto.setItemDetail(item.getItemDetail());
-        dto.setPrice(item.getPrice());
-        dto.setStock(item.getStock());
-        dto.setItemSellStatus(item.getItemSellStatus());
-        return dto;
+        ItemDetailDto itemDetailDto = new ItemDetailDto(item);
+        return itemDetailDto;
     }
 
     public void saveItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList) throws Exception {
