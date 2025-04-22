@@ -54,8 +54,8 @@ public class adminController {
     }
 
     @PostMapping("/item/edit/{id}")
-    public String update(@PathVariable Long id, @ModelAttribute ItemFormDto itemFormDto){
-        itemService.updateItem(id, itemFormDto);
+    public String update(@PathVariable Long id, @ModelAttribute ItemFormDto itemFormDto, @RequestParam("itemImgFileList") List<MultipartFile> images) throws Exception{
+        itemService.updateItem(id, itemFormDto, images);
         return "redirect:/admin/item/list";
     }
 

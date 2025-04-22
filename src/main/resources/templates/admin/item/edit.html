@@ -10,7 +10,7 @@
 <div layout:fragment="content">
     <h1>상품 수정 페이지</h1>
     <hr/>
-    <form th:action="@{/admin/item/edit/{id}(id=${item.id})}" method="POST">
+    <form th:action="@{/admin/item/edit/{id}(id=${item.id})}" method="POST" enctype="multipart/form-data">
         <input type="text" name="itemName" placeholder="상품명" th:value="${item.itemName}" required /><br><br>
 
         <textarea name="itemDetail" placeholder="상품 설명" rows="4" cols="30" required
@@ -24,6 +24,8 @@
             <option value="SELL" th:selected="${item.itemSellStatus == 'SELL'}">판매중</option>
             <option value="SOLD_OUT" th:selected="${item.itemSellStatus == 'SOLD_OUT'}">품절</option>
         </select><br><br>
+
+        <input type="file" name="itemImgFileList" multiple required />
 
         <button type="submit">상품 수정</button>
     </form>

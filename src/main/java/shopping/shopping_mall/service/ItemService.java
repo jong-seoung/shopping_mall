@@ -59,7 +59,7 @@ public class ItemService{
     }
 
     @Transactional
-    public void updateItem(Long id, ItemFormDto itemFormDto) {
+    public void updateItem(Long id, ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList) throws Exception {
         Item item = itemRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("아이템 없음"));
 
@@ -68,6 +68,29 @@ public class ItemService{
         item.setPrice(itemFormDto.getPrice());
         item.setStock(itemFormDto.getStock());
         item.setItemSellStatus(itemFormDto.getItemSellStatus());
+
+        itemRepository.save(item);
+
+        List<ItemImg> existingImgs = itemImageRepository.findByItemIdOrderByIdAsc(id);
+
+        for (ItemImg img : existingImgs) {
+            if (!img.getImgName().equals("/images/default.jpg")) {
+                fileService.deleteFile(img.getImgName());
+                itemImageRepository.delete(img);           
+            }
+        }
+
+        for(int i = 0; i < itemImgFileList.size(); i++) {
+            MultipartFile file = itemImgFileList.get(i);
+            String fileName = fileService.uploadFile(file.getOriginalFilename(), file.getBytes());
+
+            ItemImg img = new ItemImg();
+            img.setImgName(fileName);
+            img.setImgUrl("/images/" + fileName);
+            img.setRepimgYn(i == 0 ? "Y" : "N");
+            img.setItem(item);
+            itemImageRepository.save(img);
+        }
     }
 
     public void delete(Long id){
