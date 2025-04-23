@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/mainLayout}">
+<head>
+    <title>내 장바구니</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <table>
+        <tr>
+            <th>상품명</th>
+            <th>개당 가격</th>
+            <th>수량</th>
+        </tr>
+        <tr th:each="cartItem : ${cartItems}">
+            <td th:text="${cartItem.item.itemName}"></td>
+            <td th:text="${cartItem.item.price}"></td>
+            <td th:text="${cartItem.amount}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

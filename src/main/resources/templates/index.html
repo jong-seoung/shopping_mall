@@ -71,6 +71,12 @@
                 <p><strong th:text="${item.price}">10000</strong>원</p>
                 <p>재고: <span th:text="${item.stock}">10</span></p>
                 <p th:text="${item.itemSellStatus}">SELL</p>
+
+                <form th:action="@{/cart/add}" method="post">
+                    <input type="hidden" name="itemId" th:value="${item.id}" />
+                    <input type="hidden" name="amount" value="1" />
+                    <button type="submit">🛒 장바구니 담기</button>
+                </form>
             </div>
         </a>
     </div>

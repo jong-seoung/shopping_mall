@@ -17,7 +17,7 @@ import shopping.shopping_mall.exception.OutOfStockException;
 public class Item extends BaseEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="item_id")
     private Long id;
 

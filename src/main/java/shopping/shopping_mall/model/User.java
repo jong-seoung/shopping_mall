@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.util.Optional;
 
 @Builder
 @Entity
@@ -20,7 +21,7 @@ import java.sql.Timestamp;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String username;
     private String password;
     private String email;
@@ -30,4 +31,9 @@ public class User {
     private String providerId; // oauth_id
     @CreationTimestamp
     private Timestamp createDate;
+    public Optional<org.springframework.boot.autoconfigure.security.SecurityProperties.User> orElseThrow(
+            Object object) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
+    }
 }
